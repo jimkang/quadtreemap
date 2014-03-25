@@ -1,0 +1,99 @@
+body {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  color: #666;
+  background-color: hsl(178, 13%, 87%);
+  margin: 1em;
+  height: 100%;
+}
+
+.point {
+  stroke: none;
+}
+
+.point.scanned {
+  fill: orange;
+  fill-opacity: 1;
+  stroke: brown;
+}
+
+.point.selected {
+  fill: red;
+  fill-opacity: 1;
+}
+
+svg {
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+#quadboard {
+  border-radius: 4px;
+  border: 1px dashed #888;
+}
+
+#quadboard text {
+  fill: #fff;
+}
+
+#quadboard .node {
+  stroke: #ccc;
+  shape-rendering: crispEdges;
+}
+
+.map-node {
+  stroke: #ccc;
+  shape-rendering: crispEdges;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
+#treeboard {
+  background-color: #444;
+  border-radius: 4px;
+}
+
+#treeboard .node circle {
+  cursor: pointer;
+  fill-opacity: 0.8;
+  stroke: none;
+}
+
+#treeboard .new.node circle {
+}
+
+#treeboard .node text {
+  fill: #fff;
+  stroke: none;
+}
+
+#treeboard .link {
+  fill: none;
+  stroke: #aaa;
+  opacity: 0.7;
+}
+
+.node tspan {
+  font-size: 16px;
+}
+
+a {
+  font-weight: bold;
+  color: #555;
+  text-decoration: none;
+}
+
+.instructions {
+  background-color: hsla(60, 100%, 80%, 0.8);
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  padding: 0.5em;
+}
+
+.aside {
+  background-color: hsla(120, 10%, 80%, 0.8);
+  padding: 1em;
+}

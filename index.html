@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<html>
+<head>
+  <title>Map quadtree</title>
+  <link rel="stylesheet" type="text/css" href="quadtreevis.css" />
+</head>
+
+<body>
+
+<p>A quadtree mapped to show what area each non-leaf node represents and covers. Reload for a different random quadtree.</p>
+
+<svg id="quadmap" width="90%" height="75%">
+  <g id="quadroot"></g>
+  <g id="pointroot"></g>
+</svg>
+
+<script src="lib/d3.js"></script>
+<script src="example-quadtree.js"></script>
+<script src="quadtreemap.js"></script>
+<script src="exhibit-controller.js"></script>
+
+<script type="text/javascript">
+// console.log(quadtree.nodes);
+
+</script>
+
+</body>
+</html>
