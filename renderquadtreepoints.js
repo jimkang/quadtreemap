@@ -60,18 +60,18 @@ function renderQuadtreePoints(opts) {
     .attr('cy', function(d) { return d[1] + opts.y; })
     .attr('r', 3); 
 
-  var labels = opts.rootSelection.selectAll('.pointlabel').data(opts.points);
-  labels.enter().append('text')
-    .classed('pointlabel', true)
-    .attr('text-anchor', 'middle');
+  // var labels = opts.rootSelection.selectAll('.pointlabel').data(opts.points);
+  // labels.enter().append('text')
+  //   .classed('pointlabel', true)
+  //   .attr('text-anchor', 'middle');
 
-  labels
-    .attr('x', labelX)
-    .attr('y', labelY)
-    .attr('fill', '#ddd')
-    .text(function getText(d) {
-      return d[0] + ', ' + d[1];
-    }
-    .bind(this));
+  // labels
+  //   .attr('x', labelX)
+  //   .attr('y', labelY)
+  //   .attr('fill', '#ddd')
+  //   .text(function getText(d) {
+  //     return d[0] + ', ' + d[1];
+  //   }
+  //   .bind(this));
 
 }
