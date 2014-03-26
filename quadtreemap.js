@@ -1,4 +1,15 @@
-function quadtreeMap(width, height, quadtree, rootSelection) {
+function quadtreeMap(opts) {
+  // opts should contain:
+  // 
+  // {
+  //   x: number,
+  //   y: number,
+  //   width: number, 
+  //   height: number, 
+  //   quadtree: [a d3.geom.quadtree], 
+  //   rootSelection: [a D3 selection of a <g> under which to render the quads]
+  // }
+
   var quadtreemap = {};
 
   function childNodesToQuads(rootNode, parentQuad, depth) {
@@ -35,31 +46,27 @@ function quadtreeMap(width, height, quadtree, rootSelection) {
   }
 
   quadtreemap.render = function render(quads) {
-    rootSelection.selectAll('.map-node').data(quads)
-      .enter().append('rect')
-        .attr('class', 'map-node')
-        .attr('x', function(d) { return d.x; })
-        .attr('y', function(d) { return d.y; })
-        .attr('width', function(d) { return d.width; })
-        .attr('height', function(d) { return d.height; });
-
-    rootSelection.selectAll('.map-node-label').data(quads)
-      .enter().append('text').text(function (d) { return d.name; })
-        .attr('x', function(d) { return d.x + d.width/3; })
-        .attr('y', function(d) { return d.y + d.height/2; })
-        .attr('fill', '#fff');
+    opts.rootSelection.selectAll('.map-node').data(quads).enter().append('rect')
+      .classed('map-node', true)
+      .attr({
+        id: function name(d) { return d.name; },
+        x: function x(d) { return d.x; },
+        y: function y(d) { return d.y; },
+        width: function width(d) { return d.width; },
+        height: function height(d) { return d.height }
+      });
   };
 
   ((function init() {
     var rootQuad =  {
       name: 'root-quad',
-      x: 0,
-      y: 0,
-      width: width,
-      height: height
+      x: opts.x,
+      y: opts.y,
+      width: opts.width,
+      height: opts.height,
     };
 
-    var quads = childNodesToQuads(quadtree, rootQuad, 0);
+    var quads = childNodesToQuads(opts.quadtree, rootQuad, 0);
     quads.unshift(rootQuad);
 
     quadtreemap.render(quads);

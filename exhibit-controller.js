@@ -2,7 +2,8 @@ function exhibitController() {
   var exhibit = {
     points: [],
     displayedPointRange: [0, 100],
-    maxNumberOfPoints: 1000
+    maxNumberOfPoints: 1000,
+    padding: 8
   };
 
   var mapWidth = 0;
@@ -10,8 +11,8 @@ function exhibitController() {
 
   ((function captureMapDimensions() {
     var mapEl = d3.select('#quadmap').node();
-    mapWidth = mapEl.clientWidth;
-    mapHeight = mapEl.clientHeight;
+    mapWidth = mapEl.clientWidth - 2 * exhibit.padding;
+    mapHeight = mapEl.clientHeight - 2 * exhibit.padding;
   })());
 
   function createPointRandomly() {
@@ -36,10 +37,23 @@ function exhibitController() {
   exhibit.quadtree = exampleQuadtree(mapWidth, mapHeight, 
     exhibit.displayedPoints());
 
-  exhibit.quadmap = quadtreeMap(mapWidth, mapHeight, exhibit.quadtree, 
-    d3.select('#quadroot'));
+  exhibit.quadmap = quadtreeMap({
+    x: exhibit.padding, 
+    y: exhibit.padding, 
+    width: mapWidth, 
+    height: mapHeight, 
+    quadtree: exhibit.quadtree, 
+    rootSelection: d3.select('#quadroot')
+  });
 
-  renderQuadtreePoints(exhibit.displayedPoints(), d3.select('#pointroot'));
+  renderQuadtreePoints({
+    points: exhibit.displayedPoints(),
+    rootSelection: d3.select('#pointroot'),
+    x: exhibit.padding,
+    y: exhibit.padding,
+    width: mapWidth, 
+    height: mapHeight,
+  });
 
   return exhibit;
 }

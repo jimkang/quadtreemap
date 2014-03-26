@@ -1,25 +1,10 @@
 body {
   font-family: Georgia, serif;
   font-size: 18px;
-  color: #666;
-  background-color: hsl(178, 13%, 87%);
+  color: #eee;
+  background-color: hsl(348, 69%, 39%);
   margin: 1em;
   height: 100%;
-}
-
-.point {
-  stroke: none;
-}
-
-.point.scanned {
-  fill: orange;
-  fill-opacity: 1;
-  stroke: brown;
-}
-
-.point.selected {
-  fill: red;
-  fill-opacity: 1;
 }
 
 svg {
@@ -42,12 +27,21 @@ svg {
 
 .map-node {
   stroke: #ccc;
+  fill: hsla(0, 0%, 0%, 0.15);
   shape-rendering: crispEdges;
 }
 
-.brush .extent {
-  stroke: #fff;
-  fill-opacity: .125;
+#root-quad {
+  fill: #fff;
+}
+
+.pointlabel {
+  font-size: 11px;
+  shape-rendering: crispEdges;
+  fill: rgba(236, 245, 19, 1);
+}
+
+.dot {
   shape-rendering: crispEdges;
 }
 
