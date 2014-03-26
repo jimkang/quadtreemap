@@ -11,20 +11,6 @@ svg {
   font-family: "Helvetica Neue", sans-serif;
 }
 
-#quadboard {
-  border-radius: 4px;
-  border: 1px dashed #888;
-}
-
-#quadboard text {
-  fill: #fff;
-}
-
-#quadboard .node {
-  stroke: #ccc;
-  shape-rendering: crispEdges;
-}
-
 .map-node {
   stroke: #ccc;
   fill: hsla(0, 0%, 0%, 0.15);
@@ -43,35 +29,7 @@ svg {
 
 .dot {
   shape-rendering: crispEdges;
-}
-
-#treeboard {
-  background-color: #444;
-  border-radius: 4px;
-}
-
-#treeboard .node circle {
   cursor: pointer;
-  fill-opacity: 0.8;
-  stroke: none;
-}
-
-#treeboard .new.node circle {
-}
-
-#treeboard .node text {
-  fill: #fff;
-  stroke: none;
-}
-
-#treeboard .link {
-  fill: none;
-  stroke: #aaa;
-  opacity: 0.7;
-}
-
-.node tspan {
-  font-size: 16px;
 }
 
 a {
@@ -93,5 +51,10 @@ a {
 }
 
 .explanation {
-   margin: 0.5em;
+  margin: 0.5em;
 }
+
+.details-box {
+
+}
+
