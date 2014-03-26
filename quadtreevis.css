@@ -1,8 +1,8 @@
 body {
   font-family: Georgia, serif;
   font-size: 18px;
-  color: #eee;
-  background-color: hsl(348, 69%, 39%);
+  color: #777;
+  background-color: hsl(0, 0%, 90%);
   margin: 1em;
   height: 100%;
 }
@@ -32,13 +32,13 @@ svg {
 }
 
 #root-quad {
-  fill: #fff;
+  fill: hsl(98, 100%, 75%);
 }
 
 .pointlabel {
   font-size: 11px;
   shape-rendering: crispEdges;
-  fill: rgba(236, 245, 19, 1);
+  fill:  hsla(55, 100%, 95%, 1);
 }
 
 .dot {
@@ -90,4 +90,8 @@ a {
 .aside {
   background-color: hsla(120, 10%, 80%, 0.8);
   padding: 1em;
+}
+
+.explanation {
+   margin: 0.5em;
 }
