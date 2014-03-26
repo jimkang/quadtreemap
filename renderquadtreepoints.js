@@ -13,17 +13,6 @@ function renderQuadtreePoints(opts) {
   // This function will try to keep the labels in the field defined by x, y, 
   // width, and height, but it will not box in points.
 
-  var dots = opts.rootSelection.selectAll('.point').data(opts.points);
-
-  dots.enter().append('circle')
-    .attr('id', function identity(d) {
-      return 'quad_point_' + d[0] + '_' + d[1];
-    })
-    .attr('class', 'point')
-    .attr('fill', function getColor(d) { 
-      return '#fff';
-    });
-
   var estimatedLabelWidth = 40;
   var estimatedLabelHeight = 15;
 
@@ -48,6 +37,22 @@ function renderQuadtreePoints(opts) {
     }
     return y;
   }
+
+  function selectPoint(d) {
+    d3.select(this).attr('fill', 'green');
+  }
+
+  var dots = opts.rootSelection.selectAll('.point').data(opts.points);
+
+  dots.enter().append('circle')
+    .attr('id', function identity(d) {
+      return 'quad_point_' + d[0] + '_' + d[1];
+    })
+    .attr('class', 'point')
+    .attr('fill', function getColor(d) { 
+      return '#fff';
+    })
+    .on('click', selectPoint);
 
   dots
     .attr('class', 'dot')
