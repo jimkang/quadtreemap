@@ -3,7 +3,8 @@ function exhibitController() {
     points: [],
     displayedPointRange: [0, 100],
     maxNumberOfPoints: 1000,
-    padding: 8
+    padding: 8,
+    detailsBox: d3.select('.details-box')
   };
 
   var mapWidth = 0;
@@ -54,6 +55,13 @@ function exhibitController() {
     width: mapWidth, 
     height: mapHeight,
   });
+
+  document.addEventListener('quadtreemap-quadSelected', reportSelectedQuad);
+
+  function reportSelectedQuad(e) {
+    console.log(e.detail);
+    exhibit.detailsBox.text(JSON.stringify(e.detail, null, '  '));
+  }
 
   return exhibit;
 }

@@ -54,6 +54,10 @@ function quadtreeMap(opts) {
         y: function y(d) { return d.y; },
         width: function width(d) { return d.width; },
         height: function height(d) { return d.height }
+      })
+      .on('click', function notifyQuadSelected(d) {
+        var event = new CustomEvent('quadtreemap-quadSelected', {detail: d});
+        document.dispatchEvent(event);
       });
   };
 
