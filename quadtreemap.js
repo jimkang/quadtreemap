@@ -34,18 +34,7 @@ function quadtreeMap(width, height, quadtree, rootSelection) {
     return quads;
   }
 
-  var rootQuad =  {
-    name: 'root-quad',
-    x: 0,
-    y: 0,
-    width: width,
-    height: height
-  };
-
-  var quads = childNodesToQuads(quadtree, rootQuad, 0);
-  quads.unshift(rootQuad);
-
-  quadtreemap.render = function render() {
+  quadtreemap.render = function render(quads) {
     rootSelection.selectAll('.map-node').data(quads)
       .enter().append('rect')
         .attr('class', 'map-node')
@@ -61,7 +50,21 @@ function quadtreeMap(width, height, quadtree, rootSelection) {
         .attr('fill', '#fff');
   };
 
-  quadtreemap.render();
+  ((function init() {
+    var rootQuad =  {
+      name: 'root-quad',
+      x: 0,
+      y: 0,
+      width: width,
+      height: height
+    };
+
+    var quads = childNodesToQuads(quadtree, rootQuad, 0);
+    quads.unshift(rootQuad);
+
+    quadtreemap.render(quads);
+  })());
 
   return quadtreeMap;
 }
+

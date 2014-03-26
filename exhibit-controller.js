@@ -39,6 +39,8 @@ function exhibitController() {
   exhibit.quadmap = quadtreeMap(mapWidth, mapHeight, exhibit.quadtree, 
     d3.select('#quadroot'));
 
+  renderQuadtreePoints(exhibit.displayedPoints(), d3.select('#pointroot'));
+
   return exhibit;
 }
 
