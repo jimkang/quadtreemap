@@ -21,6 +21,10 @@ svg {
   fill: hsl(98, 100%, 75%);
 }
 
+#quadroot rect.selected {
+  stroke: red;
+}
+
 .pointlabel {
   font-size: 11px;
   shape-rendering: crispEdges;

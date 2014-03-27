@@ -10,7 +10,10 @@ function quadtreeMap(opts) {
   //   rootSelection: [a D3 selection of a <g> under which to render the quads]
   // }
 
-  var quadtreemap = {};
+  var quadtreemap = {
+    selectedQuad: null,
+    quadIndex: 0
+  };
 
   function childNodesToQuads(rootNode, parentQuad, depth) {
     var quads = [];
@@ -25,12 +28,13 @@ function quadtreeMap(opts) {
           var isRight = (i % 2 === 1);
 
           var childQuad = {
-            name: (isBottom ? 'bottom' : 'top') + depth,
+            id: createQuadId(),
             x: parentQuad.x + (isRight ? width : 0),
             y: parentQuad.y + (isBottom ? height : 0),
             width: width,
             height: height,
-            quadtreenode: child
+            depth: depth,
+            quadtreenode: child,
           };
           
           childQuads.push(childQuad);
@@ -50,21 +54,39 @@ function quadtreeMap(opts) {
     opts.rootSelection.selectAll('.map-node').data(quads).enter().append('rect')
       .classed('map-node', true)
       .attr({
-        id: function name(d) { return d.name; },
+        id: function id(d) { return d.id; },
         x: function x(d) { return d.x; },
         y: function y(d) { return d.y; },
         width: function width(d) { return d.width; },
         height: function height(d) { return d.height }
       })
       .on('click', function notifyQuadSelected(d) {
+        selectQuad(d);
         var event = new CustomEvent('quadtreemap-quadSelected', {detail: d});
         document.dispatchEvent(event);
       });
   };
 
+  function selectQuad(quad) {
+    if (quadtreemap.selectedQuad) {
+      d3.select('#' + quadtreemap.selectedQuad.id).classed('selected', false);
+    }
+    quadtreemap.selectedQuad = quad;
+    d3.select('#' + quadtreemap.selectedQuad.id).classed('selected', true);
+  }
+
+  function getNextQuadIndex() {
+    quadtreemap.quadIndex += 1;
+    return quadtreemap.quadIndex;
+  }
+
+  function createQuadId() {
+    return 'quad-' + getNextQuadIndex();
+  }
+
   ((function init() {
     var rootQuad =  {
-      name: 'root-quad',
+      id: 'root-quad',
       x: opts.x,
       y: opts.y,
       width: opts.width,
