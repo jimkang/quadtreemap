@@ -59,12 +59,39 @@ function exhibitController() {
   document.addEventListener('quadtreemap-quadSelected', reportSelectedQuad);
 
   function reportSelectedQuad(e) {
-    console.log(e.detail);
-    exhibit.detailsBox.text(JSON.stringify(e.detail, null, '  '));
+    var quad = e.detail;
+    var quadtreenode = 
+      cleanNodeForPresentation(decircularizeQuadtreeNode(quad.quadtreenode));
+    exhibit.detailsBox.text(JSON.stringify(quadtreenode, null, '  '));
   }
 
+  function decircularizeQuadtreeNode(node) {
+    var safeNode = _.omit(node, 'nodes', 'parent');
+
+    if (node.nodes) {
+      safeNode.nodes = node.nodes.map(function cleanChild(child) {
+        return _.omit(child, 'nodes', 'parent');
+      });
+    }
+    return safeNode;
+  }
+
+  // Assumes circular refs have been removed from node.
+  function cleanNodeForPresentation(node) {
+    ['point', 'x', 'y'].forEach(function removePropertyIfEmpty(property) {
+      if (!node[property]) {
+        delete node[property];
+      }
+      if (node.nodes) {
+        node.nodes.forEach(cleanNodeForPresentation);
+      }
+    });
+    return node;
+  }
+ 
   return exhibit;
 }
+
 
 var theExhibit = exhibitController();
 

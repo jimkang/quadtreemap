@@ -29,7 +29,8 @@ function quadtreeMap(opts) {
             x: parentQuad.x + (isRight ? width : 0),
             y: parentQuad.y + (isBottom ? height : 0),
             width: width,
-            height: height
+            height: height,
+            quadtreenode: child
           };
           
           childQuads.push(childQuad);
