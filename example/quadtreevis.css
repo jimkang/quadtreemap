@@ -22,7 +22,7 @@ svg {
 }
 
 #quadroot rect.selected {
-  stroke: red;
+  fill: hsl(55, 100%, 60%);
 }
 
 .pointlabel {
