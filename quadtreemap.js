@@ -11,9 +11,10 @@ function quadtreeMap(opts) {
   // }
 
   var quadtreemap = {
-    selectedQuad: null,
     quadIndex: 0
   };
+
+  var oneAtATimeSelector = createOneAt('selected');
 
   function childNodesToQuads(rootNode, parentQuad, depth) {
     var quads = [];
@@ -61,19 +62,11 @@ function quadtreeMap(opts) {
         height: function height(d) { return d.height }
       })
       .on('click', function notifyQuadSelected(d) {
-        selectQuad(d);
+        oneAtATimeSelector.selectElementWithId(d.id);
         var event = new CustomEvent('quadtreemap-quadSelected', {detail: d});
         document.dispatchEvent(event);
       });
   };
-
-  function selectQuad(quad) {
-    if (quadtreemap.selectedQuad) {
-      d3.select('#' + quadtreemap.selectedQuad.id).classed('selected', false);
-    }
-    quadtreemap.selectedQuad = quad;
-    d3.select('#' + quadtreemap.selectedQuad.id).classed('selected', true);
-  }
 
   function getNextQuadIndex() {
     quadtreemap.quadIndex += 1;

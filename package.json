@@ -1,0 +1,31 @@
+{
+  "name": "quadtreemap",
+  "version": "0.1.0",
+  "description": "Functions that map the quads in D3 quadtrees to rects and maps the points as well.",
+  "main": "quadtreemap.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jimkang/quadtreemap.git"
+  },
+  "keywords": [
+    "d3",
+    "quadtree",
+    "rect",
+    "browser"
+  ],
+  "author": "Jim Kang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jimkang/quadtreemap/issues"
+  },
+  "homepage": "https://github.com/jimkang/quadtreemap",
+  "dependencies": {
+    "one-at": "~0.1.0"
+  }
+}
