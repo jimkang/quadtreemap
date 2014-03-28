@@ -15,6 +15,7 @@ function renderQuadtreePoints(opts) {
 
   var estimatedLabelWidth = 40;
   var estimatedLabelHeight = 15;
+  var oneAtATimeSelector = createOneAt('selected');
 
   function labelX(d) {
     var x = d[0] + opts.x;
@@ -38,40 +39,27 @@ function renderQuadtreePoints(opts) {
     return y;
   }
 
+  function id(d) {
+    return 'quad_point_' + d[0] + '_' + d[1];
+  }
+
   function selectPoint(d) {
-    d3.select(this).attr('fill', 'green');
+    oneAtATimeSelector.selectElementWithId(id(d));
+    var event = new CustomEvent('quadtreepoints-pointSelected', {detail: d});
+    document.dispatchEvent(event);
   }
 
   var dots = opts.rootSelection.selectAll('.point').data(opts.points);
 
-  dots.enter().append('circle')
-    .attr('id', function identity(d) {
-      return 'quad_point_' + d[0] + '_' + d[1];
-    })
-    .attr('class', 'point')
-    .attr('fill', function getColor(d) { 
-      return '#fff';
-    })
-    .on('click', selectPoint);
+  dots.enter().append('circle').attr({
+    id: id,
+    r: 3,
+    class: 'dot'
+  })
+  .on('click', selectPoint);
 
-  dots
-    .attr('class', 'dot')
-    .attr('cx', function(d) { return d[0] + opts.x; })
-    .attr('cy', function(d) { return d[1] + opts.y; })
-    .attr('r', 3); 
-
-  // var labels = opts.rootSelection.selectAll('.pointlabel').data(opts.points);
-  // labels.enter().append('text')
-  //   .classed('pointlabel', true)
-  //   .attr('text-anchor', 'middle');
-
-  // labels
-  //   .attr('x', labelX)
-  //   .attr('y', labelY)
-  //   .attr('fill', '#ddd')
-  //   .text(function getText(d) {
-  //     return d[0] + ', ' + d[1];
-  //   }
-  //   .bind(this));
-
+  dots.attr({
+    cx: function cx(d) { return d[0] + opts.x; },
+    cy: function cy(d) { return d[1] + opts.y; },
+  });
 }

@@ -57,12 +57,18 @@ function exhibitController() {
   });
 
   document.addEventListener('quadtreemap-quadSelected', reportSelectedQuad);
+  document.addEventListener('quadtreepoints-pointSelected', reportSelectedPt);
 
   function reportSelectedQuad(e) {
     var quad = e.detail;
     var quadtreenode = 
       cleanNodeForPresentation(decircularizeQuadtreeNode(quad.quadtreenode));
     exhibit.detailsBox.text(JSON.stringify(quadtreenode, null, '  '));
+  }
+
+  function reportSelectedPt(e) {
+    var point = e.detail;
+    exhibit.detailsBox.text(JSON.stringify(point));    
   }
 
   function decircularizeQuadtreeNode(node) {

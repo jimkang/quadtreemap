@@ -25,15 +25,14 @@ svg {
   fill: hsl(55, 100%, 60%);
 }
 
-.pointlabel {
-  font-size: 11px;
-  shape-rendering: crispEdges;
-  fill:  hsla(55, 100%, 95%, 1);
-}
-
 .dot {
   shape-rendering: crispEdges;
   cursor: pointer;
+  fill: white;
+}
+
+.dot.selected {
+  fill: rgb(204, 0, 255);
 }
 
 a {
