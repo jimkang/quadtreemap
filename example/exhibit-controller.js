@@ -12,8 +12,21 @@ function exhibitController() {
 
   ((function captureMapDimensions() {
     var mapEl = d3.select('#quadmap').node();
-    mapWidth = mapEl.clientWidth - 2 * exhibit.padding;
-    mapHeight = mapEl.clientHeight - 2 * exhibit.padding;
+
+    mapWidth = mapEl.clientWidth;
+    if (mapWidth < 1) {
+      // This is necessary on Firefox.
+      mapWidth = mapEl.parentElement.clientWidth;
+    }
+
+    mapHeight = mapEl.clientHeight;
+    if (mapHeight < 1) {
+      // This is necessary on Firefox.
+      mapHeight = mapEl.parentElement.clientHeight;
+    }
+
+    mapWidth -= (2 * exhibit.padding);
+    mapHeight -= (2 * exhibit.padding);
   })());
 
   function createPointRandomly() {
