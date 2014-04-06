@@ -1,12 +1,8 @@
 function exhibitController() {
-  var exhibit = {
-    points: [],
-    displayedPointRange: [0, 100],
-    maxNumberOfPoints: 1000,
-    padding: 8,
-    detailsBox: d3.select('.details-box')
-  };
-
+  var displayedPointRange = [0, 100];
+  var maxNumberOfPoints = 1000;
+  var padding = 8;
+  var detailsBox = d3.select('.details-box');
   var mapWidth = 0;
   var mapHeight = 0;
 
@@ -25,8 +21,8 @@ function exhibitController() {
       mapHeight = mapEl.parentElement.clientHeight;
     }
 
-    mapWidth -= (2 * exhibit.padding);
-    mapHeight -= (2 * exhibit.padding);
+    mapWidth -= (2 * padding);
+    mapHeight -= (2 * padding);
   })());
 
   function createPointRandomly() {
@@ -36,35 +32,27 @@ function exhibitController() {
     ];
   }
 
-  exhibit.displayedPoints = function displayedPoints() {
-    return exhibit.points.slice(
-      exhibit.displayedPointRange[0], exhibit.displayedPointRange[1]);
-  };
+  function displayedPoints() {
+    return points.slice(displayedPointRange[0], displayedPointRange[1]);
+  }
 
-  exhibit.points = d3.range(exhibit.maxNumberOfPoints).map(createPointRandomly);
-  // exhibit.points = [
-  //   [mapWidth - 1, mapHeight - 1], 
-  //   [mapWidth - 10, mapHeight - 10], 
-  //   [mapWidth - 100, mapHeight - 100]
-  // ];
+  var points = d3.range(maxNumberOfPoints).map(createPointRandomly);
+  var quadtree = exampleQuadtree(mapWidth, mapHeight, displayedPoints());
 
-  exhibit.quadtree = exampleQuadtree(mapWidth, mapHeight, 
-    exhibit.displayedPoints());
-
-  exhibit.quadmap = quadtreeMap({
-    x: exhibit.padding, 
-    y: exhibit.padding, 
+  var quadmap = createQuadtreeMap({
+    x: padding, 
+    y: padding, 
     width: mapWidth, 
     height: mapHeight, 
-    quadtree: exhibit.quadtree, 
+    quadtree: quadtree, 
     rootSelection: d3.select('#quadroot')
   });
 
   renderQuadtreePoints({
-    points: exhibit.displayedPoints(),
+    points: displayedPoints(),
     rootSelection: d3.select('#pointroot'),
-    x: exhibit.padding,
-    y: exhibit.padding,
+    x: padding,
+    y: padding,
     width: mapWidth, 
     height: mapHeight,
   });
@@ -75,17 +63,15 @@ function exhibitController() {
   function reportSelectedQuad(e) {
     var quad = e.detail;
     var report = quadtreeNodeReport(quad.quadtreenode);
-    exhibit.detailsBox.text(JSON.stringify(report, null, '  '));
+    detailsBox.text(JSON.stringify(report, null, '  '));
   }
 
   function reportSelectedPt(e) {
     var point = e.detail;
-    exhibit.detailsBox.text(JSON.stringify(point));    
+    detailsBox.text(JSON.stringify(point));    
   }
  
   return exhibit;
 }
 
-
 var theExhibit = exhibitController();
-
