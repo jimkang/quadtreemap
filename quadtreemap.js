@@ -1,4 +1,4 @@
-function quadtreeMap(opts) {
+function createQuadtreeMap(opts) {
   // opts should contain:
   // 
   // {
@@ -10,10 +10,7 @@ function quadtreeMap(opts) {
   //   rootSelection: [a D3 selection of a <g> under which to render the quads]
   // }
 
-  var quadtreemap = {
-    quadIndex: 0
-  };
-
+  var quadIndex = 0;
   var oneAtATimeSelector = createOneAt('selected');
 
   function childNodesToQuads(rootNode, parentQuad, depth) {
@@ -35,12 +32,13 @@ function quadtreeMap(opts) {
             width: width,
             height: height,
             depth: depth,
-            quadtreenode: child,
+            quadtreenode: child
           };
           
           childQuads.push(childQuad);
           childQuads = childQuads.concat(
-            childNodesToQuads(child, childQuad, depth + 1));
+            childNodesToQuads(child, childQuad, depth + 1)
+          );
         }
         return childQuads;
       }
@@ -51,7 +49,7 @@ function quadtreeMap(opts) {
     return quads;
   }
 
-  quadtreemap.render = function render(quads) {
+  function render(quads) {
     opts.rootSelection.selectAll('.map-node').data(quads).enter().append('rect')
       .classed('map-node', true)
       .attr({
@@ -66,32 +64,30 @@ function quadtreeMap(opts) {
         var event = new CustomEvent('quadtreemap-quadSelected', {detail: d});
         document.dispatchEvent(event);
       });
-  };
+  }
 
   function getNextQuadIndex() {
-    quadtreemap.quadIndex += 1;
-    return quadtreemap.quadIndex;
+    quadIndex += 1;
+    return quadIndex;
   }
 
   function createQuadId() {
     return 'quad-' + getNextQuadIndex();
   }
 
-  ((function init() {
-    var rootQuad =  {
-      id: 'root-quad',
-      x: opts.x,
-      y: opts.y,
-      width: opts.width,
-      height: opts.height,
-    };
+  var rootQuad = {
+    id: 'root-quad',
+    x: opts.x,
+    y: opts.y,
+    width: opts.width,
+    height: opts.height,
+  };
 
-    var quads = childNodesToQuads(opts.quadtree, rootQuad, 0);
-    quads.unshift(rootQuad);
+  var quads = childNodesToQuads(opts.quadtree, rootQuad, 0);
+  quads.unshift(rootQuad);
+  render(quads);
 
-    quadtreemap.render(quads);
-  })());
-
-  return quadtreeMap;
+  return {
+    render: render
+  };
 }
-
