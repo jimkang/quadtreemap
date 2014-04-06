@@ -75,7 +75,7 @@ This event is dispatched when the user selects a point. The event's `detail` obj
 Example
 -------
 
-See `example/index.html`. [There's a live version of it here.](http://jimkang.com/quadtreetmap/example/)
+See `example/index.html`. [There's a live version of it here.](http://jimkang.com/quadtreemap/example/)
 
 License
 -------
