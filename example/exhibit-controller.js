@@ -58,7 +58,7 @@ function exhibitController() {
   });
 
   document.addEventListener('quadtreemap-quadSelected', reportSelectedQuad);
-  document.addEventListener('quadtreepoints-pointSelected', reportSelectedPt);
+  document.addEventListener('quadtreemap-pointSelected', reportSelectedPt);
 
   function reportSelectedQuad(e) {
     var quad = e.detail;
