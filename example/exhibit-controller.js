@@ -48,7 +48,7 @@ function exhibitController() {
     rootSelection: d3.select('#quadroot')
   });
 
-  renderQuadtreePoints({
+  var pointsRendering = renderQuadtreePoints({
     points: displayedPoints(),
     rootSelection: d3.select('#pointroot'),
     x: padding,
@@ -73,7 +73,8 @@ function exhibitController() {
  
   return {
     quadtree: quadtree,
-    quadmap: quadmap
+    quadmap: quadmap,
+    pointsRendering: pointsRendering
   };
 }
 

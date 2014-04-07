@@ -62,4 +62,8 @@ function renderQuadtreePoints(opts) {
     cx: function cx(d) { return d[0] + opts.x; },
     cy: function cy(d) { return d[1] + opts.y; },
   });
+
+  return {
+    selectPointElExclusively: oneAtATimeSelector.selectElementWithId
+  };
 }
