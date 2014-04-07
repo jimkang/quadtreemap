@@ -88,6 +88,7 @@ function createQuadtreeMap(opts) {
   render(quads);
 
   return {
-    render: render
+    render: render,
+    selectQuadElExclusively: oneAtATimeSelector.selectElementWithId
   };
 }

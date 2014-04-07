@@ -71,7 +71,10 @@ function exhibitController() {
     detailsBox.text(JSON.stringify(point));    
   }
  
-  return exhibit;
+  return {
+    quadtree: quadtree,
+    quadmap: quadmap
+  };
 }
 
 var theExhibit = exhibitController();
