@@ -27,6 +27,7 @@
   "homepage": "https://github.com/jimkang/quadtreemap",
   "dependencies": {
     "one-at": "~0.1.0",
-    "quadtreenodereport": "0.1.1"
+    "quadtreenodereport": "0.1.1",
+    "quadtreelabeler": "~0.1.0"
   }
 }
