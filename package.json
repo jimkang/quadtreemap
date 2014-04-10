@@ -1,6 +1,6 @@
 {
   "name": "quadtreemap",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Functions that map the quads in D3 quadtrees to rects and maps the points as well.",
   "main": "quadtreemap.js",
   "directories": {
@@ -28,6 +28,6 @@
   "dependencies": {
     "one-at": "~0.1.0",
     "quadtreenodereport": "0.1.1",
-    "quadtreelabeler": "~0.1.0"
+    "quadtreelabeler": "~0.3.2"
   }
 }
