@@ -62,7 +62,7 @@ function exhibitController() {
 
   function reportSelectedQuad(e) {
     var quad = e.detail;
-    var report = quadtreeNodeReport(quad.quadtreenode);
+    var report = quadtreeNodeReport(quad.sourceNode);
     detailsBox.text(JSON.stringify(report, null, '  '));
   }
 
