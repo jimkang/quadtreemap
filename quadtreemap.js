@@ -80,7 +80,7 @@ function createQuadtreeMap(opts) {
   }
 
   var rootQuad = {
-    id: 'root-quad',
+    id: labeler.elementIdForNode(opts.quadtree),
     x: opts.x,
     y: opts.y,
     width: opts.width,
