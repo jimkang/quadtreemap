@@ -24,24 +24,29 @@ function renderQuadtreePoints(opts) {
       point: pt
     };
 
+    labeler.setLabelOnNode(sourceNode);
+
     return {
       sourceNode: sourceNode,
-      label: labeler.label(sourceNode)
     };
   }
 
+  function elementIdForQuad(quad) {
+    return labeler.elementIdForNode(quad.sourceNode);
+  }
+
   function selectPoint(d) {
-    oneAtATimeSelector.selectElementWithId(labeler.elementIdForNode(d));
-    var event = new CustomEvent('quadtreemap-pointSelected', {detail: d});
+    var node = d.sourceNode;
+    oneAtATimeSelector.selectElementWithId(labeler.elementIdForNode(node));
+    var event = new CustomEvent('quadtreemap-pointSelected', {detail: node});
     document.dispatchEvent(event);
   }
 
   var quads = opts.points.map(pointToQuad);
-
   var dots = opts.rootSelection.selectAll('.point').data(quads);
 
   dots.enter().append('circle').attr({
-    id: labeler.elementIdForNode,
+    id: elementIdForQuad,
     r: 3,
     class: 'dot'
   })
