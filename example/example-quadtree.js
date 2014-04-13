@@ -19,8 +19,11 @@ function exampleQuadtree(width, height, points) {
   var quadtree = treeFactory(points);
   var labeler = createQuadtreeLabeler('map-');
 
-  quadtree.visit(labeler.setLabelOnNode);
+  quadtree.updateLabels = function updateLabels() {
+    quadtree.visit(labeler.setLabelOnNode);
+  };
+
+  quadtree.updateLabels();
 
   return quadtree;
 }
-

@@ -48,7 +48,7 @@ function exhibitController() {
     rootSelection: d3.select('#quadroot')
   });
 
-  var pointsRendering = renderQuadtreePoints({
+  var pointsRendering = createQuadtreePointsMap({
     points: displayedPoints(),
     rootSelection: d3.select('#pointroot'),
     x: padding,
@@ -70,8 +70,22 @@ function exhibitController() {
     var point = e.detail;
     detailsBox.text(JSON.stringify(point));    
   }
+
+  function addPoints() {
+    var previousUpperBound = displayedPointRange[1];
+    displayedPointRange[1] += 100;
+    var newPoints = points.slice(previousUpperBound, displayedPointRange[1]);
+    newPoints.forEach(quadtree.add);
+    quadtree.updateLabels();
+    quadmap.render(quadmap.buildQuads());
+
+    pointsRendering.render(displayedPoints());
+  }
+
+  d3.select('#add-points-button').on('click', addPoints);
  
   return {
+    points: points,
     quadtree: quadtree,
     quadmap: quadmap,
     pointsRendering: pointsRendering
