@@ -40,22 +40,23 @@ function exhibitController() {
   var quadtree = exampleQuadtree(mapWidth, mapHeight, displayedPoints());
 
   var quadmap = createQuadtreeMap({
+    quadtree: quadtree, 
     x: padding, 
     y: padding, 
     width: mapWidth, 
     height: mapHeight, 
-    quadtree: quadtree, 
-    rootSelection: d3.select('#quadroot')
+    quadRootSelection: d3.select('#quadroot'),
+    pointRootSelection: d3.select('#pointroot')
   });
 
-  var pointsRendering = createQuadtreePointsMap({
-    points: displayedPoints(),
-    rootSelection: d3.select('#pointroot'),
-    x: padding,
-    y: padding,
-    width: mapWidth, 
-    height: mapHeight,
-  });
+  // var pointsRendering = createQuadtreePointsMap({
+  //   points: displayedPoints(),
+  //   rootSelection: d3.select('#pointroot'),
+  //   x: padding,
+  //   y: padding,
+  //   width: mapWidth, 
+  //   height: mapHeight,
+  // });
 
   document.addEventListener('quadtreemap-quadSelected', reportSelectedQuad);
   document.addEventListener('quadtreemap-pointSelected', reportSelectedPt);
@@ -77,18 +78,20 @@ function exhibitController() {
     var newPoints = points.slice(previousUpperBound, displayedPointRange[1]);
     newPoints.forEach(quadtree.add);
     quadtree.updateLabels();
-    quadmap.render(quadmap.buildQuads());
+    quadmap.render();
 
-    pointsRendering.render(displayedPoints());
+    // pointsRendering.render(displayedPoints());
   }
 
   d3.select('#add-points-button').on('click', addPoints);
+
+  quadmap.render();
  
   return {
     points: points,
     quadtree: quadtree,
     quadmap: quadmap,
-    pointsRendering: pointsRendering
+    // pointsRendering: pointsRendering
   };
 }
 
