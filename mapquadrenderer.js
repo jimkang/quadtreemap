@@ -13,15 +13,12 @@ function createMapQuadRenderer(opts) {
 
   var quadIndex = 0;
   var oneAtATimeSelector = createOneAt('selected');
-  var labeler = createQuadtreeLabeler('map-');
 
-  function prefixedIdForTreeNode(node) {
-    var fullId = labeler.elementIdForNode(node);
-    if (opts.prefix) {
-      fullId = (opts.prefix + '-' + fullId);
-    }
-    return fullId;
-  }  
+  var prefix = 'map-';
+  if (opts.prefix) {
+    prefix = (opts.prefix + '-' + prefix);
+  }
+  var labeler = createQuadtreeLabeler(prefix);
 
   function childNodesToQuads(rootNode, parentQuad, depth) {
     var quads = [];
@@ -36,7 +33,7 @@ function createMapQuadRenderer(opts) {
           var isRight = (i % 2 === 1);
 
           var childQuad = {
-            id: prefixedIdForTreeNode(child),
+            id: labeler.elementIdForNode(child),
             x: parentQuad.x + (isRight ? width : 0),
             y: parentQuad.y + (isBottom ? height : 0),
             width: width,
@@ -94,7 +91,7 @@ function createMapQuadRenderer(opts) {
 
   function buildQuads() {
     var rootQuad = {
-      id: prefixedIdForTreeNode(opts.quadtree),
+      id: labeler.elementIdForNode(opts.quadtree),
       x: opts.x,
       y: opts.y,
       width: opts.width,
@@ -112,6 +109,6 @@ function createMapQuadRenderer(opts) {
     buildQuads: buildQuads,
     render: render,
     selectQuadElExclusively: oneAtATimeSelector.selectElementWithId,
-    prefixedIdForTreeNode: prefixedIdForTreeNode
+    labeler: labeler
   };
 }
