@@ -18,7 +18,7 @@ function createQuadtreePointsMap(opts) {
   var oneAtATimeSelector = createOneAt('selected');
   var labeler = createQuadtreeLabeler('map-');
 
-  function prefixedId(node) {
+  function prefixedIdForNode(node) {
     var fullId = labeler.elementIdForNode(node);
     if (opts.prefix) {
       fullId = (opts.prefix + '-' + fullId);
@@ -40,12 +40,12 @@ function createQuadtreePointsMap(opts) {
   }
 
   function elementIdForQuad(quad) {
-    return prefixedId(quad.sourceNode);
+    return prefixedIdForNode(quad.sourceNode);
   }
 
   function selectPoint(d) {
     var node = d.sourceNode;
-    oneAtATimeSelector.selectElementWithId(prefixedId(node));
+    oneAtATimeSelector.selectElementWithId(prefixedIdForNode(node));
     var event = new CustomEvent('quadtreemap-pointSelected', {detail: d});
     document.dispatchEvent(event);
   }
@@ -70,6 +70,7 @@ function createQuadtreePointsMap(opts) {
 
   return {
     render: render,
-    selectPointElExclusively: oneAtATimeSelector.selectElementWithId
+    selectPointElExclusively: oneAtATimeSelector.selectElementWithId,
+    prefixedIdForNode: prefixedIdForNode
   };
 }
