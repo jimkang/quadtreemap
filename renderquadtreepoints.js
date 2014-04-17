@@ -67,7 +67,7 @@ function createQuadtreePointsMap(opts) {
 
   return {
     render: render,
-    selectPointElExclusively: oneAtATimeSelector.selectElementWithId,
+    selectElExclusively: oneAtATimeSelector.selectElementWithId,
     labeler: labeler
   };
 }

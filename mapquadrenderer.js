@@ -108,7 +108,7 @@ function createMapQuadRenderer(opts) {
   return {
     buildQuads: buildQuads,
     render: render,
-    selectQuadElExclusively: oneAtATimeSelector.selectElementWithId,
+    selectElExclusively: oneAtATimeSelector.selectElementWithId,
     labeler: labeler
   };
 }
