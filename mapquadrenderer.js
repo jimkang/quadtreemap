@@ -8,11 +8,20 @@ function createMapQuadRenderer(opts) {
   //   height: number, 
   //   quadtree: [a d3.geom.quadtree], 
   //   rootSelection: [a D3 selection of a <g> under which to render the quads]
+  //   prefix: string  
   // }
 
   var quadIndex = 0;
   var oneAtATimeSelector = createOneAt('selected');
   var labeler = createQuadtreeLabeler('map-');
+
+  function prefixedId(node) {
+    var fullId = labeler.elementIdForNode(node);
+    if (opts.prefix) {
+      fullId = (opts.prefix + '-' + fullId);
+    }
+    return fullId;
+  }  
 
   function childNodesToQuads(rootNode, parentQuad, depth) {
     var quads = [];
@@ -27,7 +36,7 @@ function createMapQuadRenderer(opts) {
           var isRight = (i % 2 === 1);
 
           var childQuad = {
-            id: labeler.elementIdForNode(child),
+            id: prefixedId(child),
             x: parentQuad.x + (isRight ? width : 0),
             y: parentQuad.y + (isBottom ? height : 0),
             width: width,
@@ -85,7 +94,7 @@ function createMapQuadRenderer(opts) {
 
   function buildQuads() {
     var rootQuad = {
-      id: labeler.elementIdForNode(opts.quadtree),
+      id: prefixedId(opts.quadtree),
       x: opts.x,
       y: opts.y,
       width: opts.width,

@@ -46,17 +46,9 @@ function exhibitController() {
     width: mapWidth, 
     height: mapHeight, 
     quadRootSelection: d3.select('#quadroot'),
-    pointRootSelection: d3.select('#pointroot')
+    pointRootSelection: d3.select('#pointroot'),
+    prefix: 'beefy'
   });
-
-  // var pointsRendering = createQuadtreePointsMap({
-  //   points: displayedPoints(),
-  //   rootSelection: d3.select('#pointroot'),
-  //   x: padding,
-  //   y: padding,
-  //   width: mapWidth, 
-  //   height: mapHeight,
-  // });
 
   document.addEventListener('quadtreemap-quadSelected', reportSelectedQuad);
   document.addEventListener('quadtreemap-pointSelected', reportSelectedPt);
@@ -79,8 +71,6 @@ function exhibitController() {
     newPoints.forEach(quadtree.add);
     quadtree.updateLabels();
     quadmap.render();
-
-    // pointsRendering.render(displayedPoints());
   }
 
   d3.select('#add-points-button').on('click', addPoints);
@@ -90,8 +80,7 @@ function exhibitController() {
   return {
     points: points,
     quadtree: quadtree,
-    quadmap: quadmap,
-    // pointsRendering: pointsRendering
+    quadmap: quadmap
   };
 }
 

@@ -2,12 +2,12 @@ function createQuadtreePointsMap(opts) {
   // opts should contain:
   // 
   // {
-  //   points: array of 2-element arrays, representing a point,
   //   rootSelection: [D3 selection of a <g> under which to render the points],
   //   x: number (left bound of the points),
   //   y: number (top bound of the points),
   //   width: number (total width of the points field), 
   //   height: number (total width of the points field),
+  //   prefix: string
   // }  
   // 
   // This function will try to keep the labels in the field defined by x, y, 
@@ -17,6 +17,14 @@ function createQuadtreePointsMap(opts) {
   var estimatedLabelHeight = 15;
   var oneAtATimeSelector = createOneAt('selected');
   var labeler = createQuadtreeLabeler('map-');
+
+  function prefixedId(node) {
+    var fullId = labeler.elementIdForNode(node);
+    if (opts.prefix) {
+      fullId = (opts.prefix + '-' + fullId);
+    }
+    return fullId;
+  }
 
   function pointToQuad(pt) {
     var sourceNode = {
@@ -32,12 +40,12 @@ function createQuadtreePointsMap(opts) {
   }
 
   function elementIdForQuad(quad) {
-    return labeler.elementIdForNode(quad.sourceNode);
+    return prefixedId(quad.sourceNode);
   }
 
   function selectPoint(d) {
     var node = d.sourceNode;
-    oneAtATimeSelector.selectElementWithId(labeler.elementIdForNode(node));
+    oneAtATimeSelector.selectElementWithId(prefixedId(node));
     var event = new CustomEvent('quadtreemap-pointSelected', {detail: d});
     document.dispatchEvent(event);
   }
@@ -59,8 +67,6 @@ function createQuadtreePointsMap(opts) {
       cy: function cy(d) { return d.sourceNode.point[1] + opts.y; },
     });
   }
-
-  // render(points);
 
   return {
     render: render,
