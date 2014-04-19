@@ -8,15 +8,15 @@ function createMapQuadRenderer(opts) {
   //   height: number, 
   //   quadtree: [a d3.geom.quadtree], 
   //   rootSelection: [a D3 selection of a <g> under which to render the quads]
-  //   prefix: string  
+  //   name: string
   // }
 
   var quadIndex = 0;
   var oneAtATimeSelector = createOneAt('selected');
 
   var prefix = 'map-';
-  if (opts.prefix) {
-    prefix = (opts.prefix + '-' + prefix);
+  if (opts.name) {
+    prefix = (opts.name + '-' + prefix);
   }
   var labeler = createQuadtreeLabeler(prefix);
 
@@ -73,7 +73,12 @@ function createMapQuadRenderer(opts) {
       })
       .on('click', function notifyQuadSelected(d) {
         oneAtATimeSelector.selectElementWithId(d.id);
-        var event = new CustomEvent('quadtreemap-quadSelected', {detail: d});
+        var event = new CustomEvent('quadtreemap-quadSelected', {
+          detail: {
+            emitterName: opts.name,
+            quad: d
+          }
+        });
         document.dispatchEvent(event);
       });
 

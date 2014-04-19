@@ -47,21 +47,16 @@ function exhibitController() {
     height: mapHeight, 
     quadRootSelection: d3.select('#quadroot'),
     pointRootSelection: d3.select('#pointroot'),
-    prefix: 'beefy'
+    name: 'beefy'
   });
 
   document.addEventListener('quadtreemap-quadSelected', reportSelectedQuad);
-  document.addEventListener('quadtreemap-pointSelected', reportSelectedPt);
+  document.addEventListener('quadtreemap-pointSelected', reportSelectedQuad);
 
   function reportSelectedQuad(e) {
-    var quad = e.detail;
+    var quad = e.detail.quad;
     var report = quadtreeNodeReport(quad.sourceNode);
     detailsBox.text(JSON.stringify(report, null, '  '));
-  }
-
-  function reportSelectedPt(e) {
-    var point = e.detail;
-    detailsBox.text(JSON.stringify(point));    
   }
 
   function addPoints() {
